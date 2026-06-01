@@ -1,0 +1,1626 @@
+from pathlib import Path
+html = r'''<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="SBYL Consulting: consultoría tecnológica, automatización de procesos, Salesforce, inteligencia artificial, desarrollo de software e integración de sistemas para empresas." />
+  <meta name="keywords" content="consultoría tecnológica, automatización de procesos, Salesforce, inteligencia artificial, desarrollo de software, transformación digital, integración de sistemas, CRM, ERP" />
+  <meta name="author" content="SBYL Consulting" />
+  <title>SBYL Consulting | Automatización, Salesforce e Inteligencia Artificial</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #08142f;
+      --navy-2: #0c1f46;
+      --blue: #4f82bc;
+      --blue-2: #73a7dc;
+      --cyan: #7dd3fc;
+      --white: #ffffff;
+      --soft: #f4f8fd;
+      --soft-2: #eaf2fa;
+      --text: #0c1a38;
+      --muted: #5c6e8a;
+      --border: #d8e3f2;
+      --success: #22c55e;
+      --danger: #ef4444;
+      --shadow: 0 24px 80px rgba(8, 20, 47, .12);
+      --shadow-soft: 0 16px 50px rgba(8, 20, 47, .08);
+      --radius: 18px;
+      --radius-sm: 10px;
+      --ease: cubic-bezier(.22, 1, .36, 1);
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--white);
+      color: var(--text);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.5;
+    }
+
+    ::selection { background: var(--blue); color: #fff; }
+    a { color: inherit; }
+    img, svg { display: block; max-width: 100%; }
+    button, input, textarea, select { font: inherit; }
+
+    .max { max-width: 1200px; margin: 0 auto; }
+    .section { padding: 110px 28px; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--blue);
+      font-size: .76rem;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 2px;
+      background: currentColor;
+      border-radius: 20px;
+    }
+
+    h1, h2, h3 { color: var(--navy); letter-spacing: -.035em; }
+    h1 {
+      font-size: clamp(3rem, 7vw, 6.3rem);
+      line-height: .93;
+      font-weight: 900;
+      margin-bottom: 28px;
+    }
+    h2 {
+      font-size: clamp(2.15rem, 4vw, 4rem);
+      line-height: 1.02;
+      font-weight: 900;
+      margin-bottom: 22px;
+    }
+    h3 { font-size: 1.15rem; line-height: 1.25; font-weight: 800; }
+    .lead {
+      color: var(--muted);
+      font-size: clamp(1rem, 1.5vw, 1.16rem);
+      line-height: 1.75;
+      max-width: 720px;
+    }
+    .blue { color: var(--blue); }
+
+    /* NAV */
+    .nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      height: 76px;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 28px;
+      background: rgba(255, 255, 255, .82);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(216, 227, 242, .8);
+      transition: box-shadow .25s ease, background .25s ease;
+    }
+    .nav.is-scrolled {
+      background: rgba(255, 255, 255, .94);
+      box-shadow: 0 10px 40px rgba(8, 20, 47, .08);
+    }
+    .nav-inner {
+      width: min(1200px, 100%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+    }
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      flex: 0 0 auto;
+    }
+    .logo-mark {
+      width: 44px;
+      height: 32px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(79,130,188,.16), rgba(125,211,252,.18));
+      border: 1px solid rgba(79,130,188,.28);
+    }
+    .logo-text { line-height: 1; }
+    .logo-main {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: .05em;
+      color: var(--navy);
+    }
+    .logo-sub {
+      margin-top: 4px;
+      font-size: .62rem;
+      letter-spacing: .26em;
+      color: var(--blue);
+      text-transform: lowercase;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: .9rem;
+      font-weight: 650;
+      transition: color .2s ease;
+      position: relative;
+    }
+    .nav-links a:not(.nav-cta)::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -8px;
+      height: 2px;
+      background: var(--blue);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .25s var(--ease);
+    }
+    .nav-links a:hover { color: var(--navy); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-cta {
+      background: var(--navy);
+      color: #fff !important;
+      padding: 11px 19px;
+      border-radius: 999px;
+      box-shadow: 0 10px 25px rgba(8, 20, 47, .16);
+    }
+    .menu-btn {
+      display: none;
+      border: 0;
+      background: var(--navy);
+      color: #fff;
+      border-radius: 12px;
+      padding: 10px 12px;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      padding: 128px 28px 70px;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 80% 20%, rgba(79,130,188,.22), transparent 34%),
+        radial-gradient(circle at 15% 80%, rgba(125,211,252,.18), transparent 30%),
+        linear-gradient(180deg, #ffffff 0%, #f5f9ff 100%);
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: .55;
+      background-image:
+        linear-gradient(rgba(12,31,70,.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(12,31,70,.055) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: linear-gradient(to bottom, #000 0%, transparent 80%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      align-items: center;
+      gap: 56px;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 13px;
+      border-radius: 999px;
+      background: rgba(79,130,188,.1);
+      border: 1px solid rgba(79,130,188,.2);
+      color: var(--blue);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .pulse {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--blue);
+      box-shadow: 0 0 0 6px rgba(79,130,188,.16);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(.75); opacity: .65; }
+    }
+    .hero p { max-width: 650px; }
+    .hero-actions {
+      margin-top: 36px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 52px;
+      padding: 0 24px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      text-decoration: none;
+      font-size: .94rem;
+      font-weight: 800;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease, border-color .2s ease;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--navy);
+      color: #fff;
+      box-shadow: 0 18px 42px rgba(8,20,47,.18);
+    }
+    .btn-primary:hover { background: var(--blue); transform: translateY(-2px); }
+    .btn-secondary {
+      background: #fff;
+      color: var(--navy);
+      border-color: var(--border);
+    }
+    .btn-secondary:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-soft);
+    }
+    .hero-proof {
+      margin-top: 38px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      color: var(--muted);
+      font-size: .9rem;
+      font-weight: 650;
+    }
+    .hero-proof span {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .check {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: inline-grid;
+      place-items: center;
+      background: rgba(34,197,94,.12);
+      color: var(--success);
+      font-weight: 900;
+      font-size: .75rem;
+    }
+    .hero-visual {
+      position: relative;
+      min-height: 590px;
+    }
+    .dashboard {
+      position: absolute;
+      inset: 24px 0 auto auto;
+      width: min(540px, 100%);
+      border-radius: 30px;
+      background: linear-gradient(145deg, rgba(8,20,47,.96), rgba(12,31,70,.96));
+      color: #fff;
+      padding: 24px;
+      box-shadow: 0 34px 110px rgba(8,20,47,.32);
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.12);
+    }
+    .dashboard::before {
+      content: "";
+      position: absolute;
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      right: -120px;
+      top: -120px;
+      background: radial-gradient(circle, rgba(79,130,188,.5), transparent 66%);
+      pointer-events: none;
+    }
+    .dash-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 24px;
+    }
+    .dash-title small {
+      color: rgba(255,255,255,.52);
+      display: block;
+      margin-bottom: 5px;
+      font-size: .78rem;
+    }
+    .dash-title strong { font-size: 1.05rem; }
+    .dash-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #d9f99d;
+      background: rgba(132,204,22,.12);
+      border: 1px solid rgba(132,204,22,.24);
+      padding: 7px 11px;
+      border-radius: 999px;
+      font-size: .78rem;
+      font-weight: 800;
+    }
+    .dash-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      position: relative;
+      z-index: 1;
+    }
+    .metric, .flow-panel {
+      background: rgba(255,255,255,.075);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 20px;
+      padding: 18px;
+      backdrop-filter: blur(10px);
+    }
+    .metric b {
+      display: block;
+      font-size: 2.2rem;
+      line-height: 1;
+      margin-bottom: 8px;
+      letter-spacing: -.04em;
+    }
+    .metric span { color: rgba(255,255,255,.58); font-size: .83rem; }
+    .flow-panel { grid-column: span 2; }
+    .flow-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 16px;
+      color: rgba(255,255,255,.66);
+      font-size: .84rem;
+    }
+    .flow {
+      display: grid;
+      grid-template-columns: 1fr 26px 1fr 26px 1fr;
+      align-items: center;
+      gap: 10px;
+    }
+    .flow-node {
+      min-height: 72px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.1);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 12px;
+      font-weight: 800;
+      font-size: .86rem;
+    }
+    .flow-arrow { color: var(--blue-2); text-align: center; font-weight: 900; }
+    .floating-card {
+      position: absolute;
+      left: 0;
+      bottom: 42px;
+      width: 250px;
+      padding: 18px;
+      background: rgba(255,255,255,.9);
+      border: 1px solid rgba(216,227,242,.9);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+      animation: float 5s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-14px); }
+    }
+    .floating-card small {
+      color: var(--muted);
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-size: .7rem;
+    }
+    .floating-card strong {
+      display: block;
+      margin-top: 7px;
+      color: var(--navy);
+      font-size: 1.6rem;
+      letter-spacing: -.04em;
+    }
+    .bar {
+      height: 9px;
+      background: var(--soft-2);
+      border-radius: 99px;
+      overflow: hidden;
+      margin-top: 14px;
+    }
+    .bar span {
+      display: block;
+      height: 100%;
+      width: 78%;
+      background: linear-gradient(90deg, var(--blue), var(--cyan));
+      border-radius: inherit;
+    }
+
+    /* STRIP */
+    .logo-strip {
+      padding: 28px;
+      background: var(--navy);
+      color: rgba(255,255,255,.72);
+      overflow: hidden;
+    }
+    .strip-track {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.11);
+      color: rgba(255,255,255,.82);
+      font-size: .84rem;
+      font-weight: 750;
+    }
+
+    /* ABOUT */
+    .about-grid {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 70px;
+      align-items: center;
+    }
+    .about-card {
+      background: var(--navy);
+      color: #fff;
+      border-radius: 30px;
+      padding: 36px;
+      min-height: 430px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .about-card::before {
+      content: "";
+      position: absolute;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      right: -130px;
+      top: -100px;
+      background: rgba(79,130,188,.38);
+    }
+    .about-card > * { position: relative; z-index: 1; }
+    .about-card h3 {
+      color: #fff;
+      font-size: clamp(1.8rem, 3vw, 3rem);
+    }
+    .about-card p { color: rgba(255,255,255,.66); line-height: 1.75; margin-top: 16px; }
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 32px;
+    }
+    .about-stat {
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 18px;
+      padding: 18px;
+    }
+    .about-stat b { display: block; font-size: 1.8rem; color: #fff; }
+    .about-stat span { font-size: .82rem; color: rgba(255,255,255,.6); }
+
+    /* SERVICES */
+    .section-soft { background: var(--soft); }
+    .section-head {
+      max-width: 1200px;
+      margin: 0 auto 58px;
+      display: grid;
+      grid-template-columns: 1fr .9fr;
+      gap: 34px;
+      align-items: end;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    .service-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 30px;
+      min-height: 310px;
+      transition: transform .25s var(--ease), box-shadow .25s ease, border-color .25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--blue), var(--cyan));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .3s var(--ease);
+    }
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-soft);
+      border-color: rgba(79,130,188,.45);
+    }
+    .service-card:hover::after { transform: scaleX(1); }
+    .icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: var(--soft-2);
+      color: var(--blue);
+      font-size: 1.35rem;
+      margin-bottom: 22px;
+    }
+    .service-card p {
+      margin-top: 12px;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: .94rem;
+    }
+    .service-card ul {
+      list-style: none;
+      display: grid;
+      gap: 8px;
+      margin-top: 18px;
+      color: var(--text);
+      font-size: .88rem;
+      font-weight: 650;
+    }
+    .service-card li::before {
+      content: "✓";
+      color: var(--blue);
+      font-weight: 900;
+      margin-right: 8px;
+    }
+
+    /* CASES */
+    .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    .case-card {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 22px;
+      background: #fff;
+      min-height: 150px;
+    }
+    .case-card b {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--navy);
+      font-size: 1rem;
+    }
+    .case-card span { color: var(--muted); font-size: .9rem; line-height: 1.6; }
+
+    /* METHOD */
+    .method {
+      background: var(--navy);
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .method h2 { color: #fff; }
+    .method .lead { color: rgba(255,255,255,.64); }
+    .method .eyebrow { color: var(--blue-2); }
+    .method::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: .25;
+      background-image:
+        linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px);
+      background-size: 70px 70px;
+      pointer-events: none;
+    }
+    .method > * { position: relative; z-index: 1; }
+    .steps {
+      margin-top: 58px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+    .step {
+      background: rgba(255,255,255,.075);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 22px;
+      padding: 26px;
+      min-height: 245px;
+      transition: transform .25s ease, background .25s ease;
+    }
+    .step:hover { transform: translateY(-7px); background: rgba(255,255,255,.1); }
+    .step-num {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: rgba(79,130,188,.24);
+      border: 1px solid rgba(115,167,220,.4);
+      color: #fff;
+      font-weight: 900;
+      margin-bottom: 22px;
+    }
+    .step h3 { color: #fff; }
+    .step p {
+      margin-top: 10px;
+      color: rgba(255,255,255,.62);
+      line-height: 1.7;
+      font-size: .93rem;
+    }
+
+    /* BENEFITS */
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap: 58px;
+      align-items: start;
+    }
+    .benefit-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .benefit {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: 0 10px 28px rgba(8,20,47,.04);
+    }
+    .benefit b { display: block; margin-bottom: 7px; color: var(--navy); }
+    .benefit span { color: var(--muted); font-size: .9rem; line-height: 1.6; }
+
+    /* INDUSTRIES */
+    .industries {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .industry {
+      background: var(--soft);
+      border: 1px solid var(--border);
+      color: var(--navy);
+      padding: 12px 16px;
+      border-radius: 999px;
+      font-weight: 750;
+      font-size: .92rem;
+    }
+
+    /* TESTIMONIALS */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    .testimonial {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 28px;
+      box-shadow: 0 12px 34px rgba(8,20,47,.05);
+    }
+    .quote {
+      color: var(--text);
+      font-weight: 650;
+      line-height: 1.75;
+    }
+    .testimonial-meta {
+      margin-top: 24px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: .88rem;
+    }
+    .testimonial-meta b {
+      display: block;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+
+    /* FAQ */
+    .faq {
+      max-width: 900px;
+      margin: 56px auto 0;
+      display: grid;
+      gap: 12px;
+    }
+    details {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+    }
+    summary {
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      font-weight: 850;
+      color: var(--navy);
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: "+"; color: var(--blue); font-size: 1.3rem; line-height: 1; }
+    details[open] summary::after { content: "–"; }
+    details p {
+      color: var(--muted);
+      line-height: 1.75;
+      margin-top: 14px;
+      max-width: 760px;
+    }
+
+    /* CONTACT */
+    .contact {
+      background: linear-gradient(145deg, var(--navy), var(--navy-2));
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .contact::before {
+      content: "";
+      position: absolute;
+      width: 520px;
+      height: 520px;
+      border-radius: 50%;
+      background: rgba(79,130,188,.25);
+      right: -180px;
+      top: -140px;
+    }
+    .contact > * { position: relative; z-index: 1; }
+    .contact h2 { color: #fff; }
+    .contact .lead { color: rgba(255,255,255,.64); }
+    .contact .eyebrow { color: rgba(255,255,255,.7); }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 58px;
+      align-items: start;
+    }
+    .contact-cards {
+      display: grid;
+      gap: 14px;
+      margin-top: 36px;
+    }
+    .contact-card {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.075);
+      border: 1px solid rgba(255,255,255,.12);
+      text-decoration: none;
+      color: #fff;
+      transition: background .2s ease, transform .2s ease;
+    }
+    .contact-card:hover { background: rgba(255,255,255,.11); transform: translateY(-2px); }
+    .contact-card small {
+      display: block;
+      color: rgba(255,255,255,.5);
+      font-size: .75rem;
+      text-transform: uppercase;
+      font-weight: 800;
+      letter-spacing: .08em;
+      margin-bottom: 3px;
+    }
+    .form-box {
+      background: #fff;
+      color: var(--text);
+      border-radius: 28px;
+      padding: 34px;
+      box-shadow: var(--shadow);
+    }
+    .form-box h3 { margin-bottom: 8px; }
+    .form-box > p { color: var(--muted); margin-bottom: 26px; }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .field { margin-bottom: 16px; }
+    .full { grid-column: 1 / -1; }
+    label {
+      display: block;
+      color: var(--muted);
+      font-size: .72rem;
+      font-weight: 850;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    input, textarea, select {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: var(--soft);
+      border-radius: 13px;
+      padding: 13px 14px;
+      outline: none;
+      color: var(--text);
+      transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--blue);
+      background: #fff;
+      box-shadow: 0 0 0 4px rgba(79,130,188,.12);
+    }
+    textarea { min-height: 124px; resize: vertical; }
+    .privacy {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      color: var(--muted);
+      font-size: .86rem;
+      line-height: 1.5;
+      margin: 5px 0 18px;
+    }
+    .privacy input { width: auto; margin-top: 3px; }
+    .submit { width: 100%; border: 0; }
+    .form-message {
+      display: none;
+      margin-top: 14px;
+      padding: 13px;
+      border-radius: 12px;
+      font-weight: 750;
+      text-align: center;
+      font-size: .9rem;
+    }
+
+    /* FINAL CTA */
+    .final-cta {
+      padding: 90px 28px;
+      background: var(--soft);
+    }
+    .final-box {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 46px;
+      border-radius: 30px;
+      background:
+        radial-gradient(circle at 90% 15%, rgba(125,211,252,.18), transparent 28%),
+        linear-gradient(135deg, #fff, #f7fbff);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 32px;
+      align-items: center;
+    }
+    .final-box h2 { font-size: clamp(2rem, 4vw, 3.5rem); margin-bottom: 14px; }
+
+    /* FOOTER */
+    footer {
+      background: #050b1a;
+      color: rgba(255,255,255,.54);
+      padding: 46px 28px;
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+    .footer-links a {
+      color: rgba(255,255,255,.54);
+      text-decoration: none;
+      font-size: .88rem;
+      transition: color .2s ease;
+    }
+    .footer-links a:hover { color: #fff; }
+
+    /* ANIMATIONS */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .7s var(--ease), transform .7s var(--ease);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* RESPONSIVE */
+    @media (max-width: 1050px) {
+      .hero-inner, .about-grid, .benefits-grid, .contact-grid, .section-head {
+        grid-template-columns: 1fr;
+      }
+      .hero-visual { min-height: 520px; }
+      .dashboard { left: 0; right: auto; }
+      .services-grid, .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+      .cases-grid, .steps { grid-template-columns: repeat(2, 1fr); }
+      .final-box { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 800px) {
+      .section { padding: 78px 22px; }
+      .hero { padding: 112px 22px 60px; }
+      .nav { height: 70px; }
+      .nav-links {
+        position: fixed;
+        left: 18px;
+        right: 18px;
+        top: 82px;
+        padding: 18px;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        box-shadow: var(--shadow-soft);
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a { padding: 10px 4px; }
+      .menu-btn { display: inline-flex; }
+      .hero-inner { gap: 32px; }
+      .hero-visual { min-height: auto; }
+      .dashboard {
+        position: relative;
+        inset: auto;
+        width: 100%;
+        border-radius: 24px;
+      }
+      .floating-card { display: none; }
+      .services-grid, .cases-grid, .steps, .benefit-list, .testimonials-grid {
+        grid-template-columns: 1fr;
+      }
+      .form-grid { grid-template-columns: 1fr; }
+      .about-stats { grid-template-columns: 1fr; }
+      .flow { grid-template-columns: 1fr; }
+      .flow-arrow { transform: rotate(90deg); }
+      .final-box { padding: 28px; }
+    }
+
+    @media (max-width: 520px) {
+      h1 { font-size: clamp(2.55rem, 15vw, 4rem); }
+      .hero-actions .btn { width: 100%; }
+      .logo-sub { display: none; }
+      .form-box { padding: 24px; border-radius: 22px; }
+      .footer-inner { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#inicio" class="logo" aria-label="SBYL Consulting inicio">
+        <span class="logo-mark" aria-hidden="true">
+          <svg width="30" height="22" viewBox="0 0 42 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M33 24H9C5.7 24 3 21.5 3 18.4C3 15.9 4.7 13.8 7 13.1C7 12.7 7 12.3 7 11.9C7 8.1 10.1 5 14 5C15.6 5 17.1 5.5 18.3 6.5C19.6 4.4 21.9 3 24.5 3C28.6 3 32 6.3 32 10.3C32 10.6 32 10.8 31.9 11.1C34.3 11.8 36 14 36 16.6C36 20.7 34.8 24 33 24Z" stroke="#4F82BC" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="logo-text">
+          <span class="logo-main">SBYL</span>
+          <span class="logo-sub">consulting</span>
+        </span>
+      </a>
+
+      <button class="menu-btn" id="menuBtn" aria-label="Abrir menú">Menú</button>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#soluciones">Soluciones</a></li>
+        <li><a href="#metodologia">Metodología</a></li>
+        <li><a href="#beneficios">Beneficios</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a class="nav-cta" href="#contacto">Solicitar consultoría</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero" id="inicio">
+    <div class="hero-inner">
+      <div class="hero-copy reveal">
+        <div class="hero-badge"><span class="pulse"></span> Automatización · IA · Salesforce · Software</div>
+        <h1>Transformamos empresas a través de la <span class="blue">tecnología</span></h1>
+        <p class="lead">
+          En SBYL Consulting ayudamos a organizaciones a optimizar operaciones, impulsar la innovación y acelerar su crecimiento mediante consultoría estratégica, inteligencia artificial, automatización y desarrollo de soluciones digitales a medida.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#contacto">Solicitar consultoría gratuita →</a>
+          <a class="btn btn-secondary" href="tel:635158292">Hablar con un especialista</a>
+        </div>
+        <div class="hero-proof">
+          <span><i class="check">✓</i> Soluciones a medida</span>
+          <span><i class="check">✓</i> Integraciones CRM/ERP</span>
+          <span><i class="check">✓</i> Resultados medibles</span>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal">
+        <div class="dashboard" aria-label="Dashboard tecnológico">
+          <div class="dash-top">
+            <div class="dash-title">
+              <small>Operational Intelligence</small>
+              <strong>Ecosistema empresarial conectado</strong>
+            </div>
+            <div class="dash-status"><span class="pulse"></span> Online</div>
+          </div>
+
+          <div class="dash-grid">
+            <div class="metric">
+              <b>+42%</b>
+              <span>Productividad estimada al automatizar procesos repetitivos.</span>
+            </div>
+            <div class="metric">
+              <b>360°</b>
+              <span>Visión unificada de clientes, datos y operaciones.</span>
+            </div>
+            <div class="flow-panel">
+              <div class="flow-header">
+                <strong>Flujo inteligente</strong>
+                <span>CRM · ERP · IA · Reporting</span>
+              </div>
+              <div class="flow">
+                <div class="flow-node">Captura de datos</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-node">Automatización</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-node">Decisiones</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="floating-card">
+          <small>Ahorro operativo</small>
+          <strong>78%</strong>
+          <div class="bar"><span></span></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="logo-strip" aria-label="Tecnologías y áreas de especialización">
+    <div class="strip-track">
+      <span class="chip">Salesforce</span>
+      <span class="chip">Automatización</span>
+      <span class="chip">Inteligencia Artificial</span>
+      <span class="chip">APIs</span>
+      <span class="chip">ERP / CRM</span>
+      <span class="chip">Cloud</span>
+      <span class="chip">Business Intelligence</span>
+      <span class="chip">Software a medida</span>
+    </div>
+  </div>
+
+  <main>
+    <section class="section" id="nosotros">
+      <div class="about-grid max">
+        <div class="about-card reveal">
+          <div>
+            <span class="eyebrow">Sobre nosotros</span>
+            <h3>Más que una consultora, tu socio estratégico digital</h3>
+            <p>Unimos visión de negocio, arquitectura tecnológica y ejecución ágil para convertir procesos complejos en sistemas simples, eficientes y escalables.</p>
+          </div>
+          <div class="about-stats">
+            <div class="about-stat"><b>IA</b><span>Aplicada a procesos reales</span></div>
+            <div class="about-stat"><b>CRM</b><span>Salesforce y ecosistemas conectados</span></div>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <span class="eyebrow">Transformación digital</span>
+          <h2>Diseñamos soluciones que reducen fricción y aceleran resultados</h2>
+          <p class="lead">
+            Ayudamos a empresas a adaptarse a los desafíos del mercado actual mediante soluciones tecnológicas innovadoras que mejoran la eficiencia, reducen costes y generan ventajas competitivas sostenibles.
+          </p>
+          <p class="lead" style="margin-top:18px">
+            Combinamos consultoría estratégica, desarrollo de software, automatización, Salesforce e inteligencia artificial para crear sistemas que trabajan contigo, no contra ti.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="soluciones">
+      <div class="section-head">
+        <div class="reveal">
+          <span class="eyebrow">Nuestras soluciones</span>
+          <h2>Soluciones tecnológicas para impulsar tu negocio</h2>
+        </div>
+        <p class="lead reveal">
+          Desde el diagnóstico hasta la implementación, creamos soluciones digitales que conectan personas, datos, herramientas y decisiones.
+        </p>
+      </div>
+
+      <div class="services-grid max">
+        <article class="service-card reveal">
+          <div class="icon">♟️</div>
+          <h3>Consultoría estratégica</h3>
+          <p>Definimos la hoja de ruta tecnológica que tu empresa necesita para crecer con orden y foco.</p>
+          <ul>
+            <li>Transformación digital</li>
+            <li>Optimización de procesos</li>
+            <li>Roadmaps tecnológicos</li>
+          </ul>
+        </article>
+
+        <article class="service-card reveal">
+          <div class="icon">💻</div>
+          <h3>Desarrollo de software</h3>
+          <p>Creamos aplicaciones, plataformas y portales diseñados alrededor de tus operaciones.</p>
+          <ul>
+            <li>Aplicaciones web y móviles</li>
+            <li>Plataformas SaaS</li>
+            <li>Software empresarial</li>
+          </ul>
+        </article>
+
+        <article class="service-card reveal">
+          <div class="icon">🤖</div>
+          <h3>Inteligencia artificial</h3>
+          <p>Aplicamos IA donde genera impacto: soporte, análisis, automatización documental y toma de decisiones.</p>
+          <ul>
+            <li>Agentes IA</li>
+            <li>Chatbots inteligentes</li>
+            <li>Análisis predictivo</li>
+          </ul>
+        </article>
+
+        <article class="service-card reveal">
+          <div class="icon">⚡</div>
+          <h3>Automatización empresarial</h3>
+          <p>Eliminamos tareas manuales y conectamos procesos para que tu equipo trabaje con más velocidad.</p>
+          <ul>
+            <li>Flujos de trabajo</li>
+            <li>Automatización financiera</li>
+            <li>Procesos operativos inteligentes</li>
+          </ul>
+        </article>
+
+        <article class="service-card reveal">
+          <div class="icon">☁️</div>
+          <h3>Salesforce, Cloud & DevOps</h3>
+          <p>Implementamos, optimizamos e integramos Salesforce y entornos cloud escalables.</p>
+          <ul>
+            <li>Sales Cloud / Service Cloud</li>
+            <li>AWS, Azure y Google Cloud</li>
+            <li>CI/CD y DevOps</li>
+          </ul>
+        </article>
+
+        <article class="service-card reveal">
+          <div class="icon">📊</div>
+          <h3>Datos y Business Intelligence</h3>
+          <p>Convertimos datos dispersos en dashboards claros, reporting automático e inteligencia de negocio.</p>
+          <ul>
+            <li>Dashboards ejecutivos</li>
+            <li>Data Analytics</li>
+            <li>Reporting automatizado</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="casos">
+      <div class="section-head">
+        <div class="reveal">
+          <span class="eyebrow">Casos de uso</span>
+          <h2>Problemas que resolvemos</h2>
+        </div>
+        <p class="lead reveal">Ayudamos cuando los procesos dependen demasiado de Excel, emails, tareas manuales o sistemas que no se comunican entre sí.</p>
+      </div>
+
+      <div class="cases-grid max">
+        <div class="case-card reveal"><b>Ventas y CRM</b><span>Pipeline, seguimiento comercial, automatización de oportunidades y reporting de ventas.</span></div>
+        <div class="case-card reveal"><b>Operaciones</b><span>Flujos internos, aprobaciones, alertas, asignación de tareas y control de procesos.</span></div>
+        <div class="case-card reveal"><b>Atención al cliente</b><span>Gestión de tickets, base de conocimiento, omnicanalidad y automatización de respuestas.</span></div>
+        <div class="case-card reveal"><b>Finanzas</b><span>Facturación, conciliación, aprobaciones, control documental y reporting financiero.</span></div>
+        <div class="case-card reveal"><b>Datos</b><span>Dashboards ejecutivos, KPIs, reporting recurrente y análisis de rendimiento.</span></div>
+        <div class="case-card reveal"><b>Integraciones</b><span>Conexión entre Salesforce, ERP, eCommerce, herramientas internas y APIs externas.</span></div>
+        <div class="case-card reveal"><b>IA aplicada</b><span>Agentes, chatbots, clasificación documental, extracción de datos y asistentes internos.</span></div>
+        <div class="case-card reveal"><b>Escalabilidad</b><span>Arquitectura tecnológica preparada para crecer sin perder control ni seguridad.</span></div>
+      </div>
+    </section>
+
+    <section class="section method" id="metodologia">
+      <div class="max">
+        <div class="section-head" style="margin-left:0;margin-right:0">
+          <div class="reveal">
+            <span class="eyebrow">Metodología</span>
+            <h2>Nuestro enfoque de trabajo</h2>
+          </div>
+          <p class="lead reveal">Un proceso claro para pasar del reto de negocio a una solución tecnológica usable, segura y medible.</p>
+        </div>
+
+        <div class="steps">
+          <article class="step reveal">
+            <div class="step-num">01</div>
+            <h3>Diagnóstico y descubrimiento</h3>
+            <p>Analizamos procesos, herramientas, datos, retos y oportunidades de mejora.</p>
+          </article>
+          <article class="step reveal">
+            <div class="step-num">02</div>
+            <h3>Diseño estratégico</h3>
+            <p>Definimos la arquitectura, roadmap, prioridades y solución adecuada para tu negocio.</p>
+          </article>
+          <article class="step reveal">
+            <div class="step-num">03</div>
+            <h3>Desarrollo e implementación</h3>
+            <p>Construimos soluciones escalables, seguras y eficientes con entregas iterativas.</p>
+          </article>
+          <article class="step reveal">
+            <div class="step-num">04</div>
+            <h3>Optimización continua</h3>
+            <p>Medimos resultados, formamos al equipo y evolucionamos la solución con nuevas mejoras.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="beneficios">
+      <div class="benefits-grid max">
+        <div class="reveal">
+          <span class="eyebrow">Beneficios</span>
+          <h2>Resultados que generan impacto</h2>
+          <p class="lead">No implementamos tecnología por moda. Diseñamos sistemas orientados a eficiencia, crecimiento, control y mejores decisiones.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contacto">Quiero mejorar mis procesos →</a>
+          </div>
+        </div>
+
+        <div class="benefit-list">
+          <div class="benefit reveal"><b>Menos coste operativo</b><span>Reducimos tareas repetitivas y dependencias manuales.</span></div>
+          <div class="benefit reveal"><b>Más productividad</b><span>Tu equipo dedica más tiempo a trabajo de valor.</span></div>
+          <div class="benefit reveal"><b>Sistemas integrados</b><span>CRM, ERP, datos y herramientas trabajando juntos.</span></div>
+          <div class="benefit reveal"><b>Escalabilidad</b><span>Soluciones preparadas para crecer con tu empresa.</span></div>
+          <div class="benefit reveal"><b>Seguridad y control</b><span>Accesos, trazabilidad y protección de información.</span></div>
+          <div class="benefit reveal"><b>Decisiones con datos</b><span>Dashboards e indicadores claros para dirección.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="sectores">
+      <div class="section-head">
+        <div class="reveal">
+          <span class="eyebrow">Sectores</span>
+          <h2>Experiencia en múltiples industrias</h2>
+        </div>
+        <p class="lead reveal">Trabajamos con empresas que necesitan procesos más ágiles, datos fiables y tecnología alineada con negocio.</p>
+      </div>
+      <div class="industries max reveal">
+        <span class="industry">Logística y Transporte</span>
+        <span class="industry">Industria y Manufactura</span>
+        <span class="industry">Retail y eCommerce</span>
+        <span class="industry">Hostelería y Restauración</span>
+        <span class="industry">Salud</span>
+        <span class="industry">Educación</span>
+        <span class="industry">Servicios Financieros</span>
+        <span class="industry">Construcción e Inmobiliario</span>
+        <span class="industry">Energía</span>
+        <span class="industry">Administraciones Públicas</span>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="diferencia">
+      <div class="section-head">
+        <div class="reveal">
+          <span class="eyebrow">Por qué elegirnos</span>
+          <h2>Lo que diferencia a SBYL Consulting</h2>
+        </div>
+        <p class="lead reveal">Trabajamos con una visión integral: estrategia, tecnología, adopción y evolución continua.</p>
+      </div>
+
+      <div class="services-grid max">
+        <article class="service-card reveal"><div class="icon">🎯</div><h3>Orientados a resultados</h3><p>Priorizamos impacto real: ahorro de tiempo, reducción de costes y mejora operativa.</p></article>
+        <article class="service-card reveal"><div class="icon">🧩</div><h3>Soluciones personalizadas</h3><p>Adaptamos la tecnología a tu modelo de negocio, no al revés.</p></article>
+        <article class="service-card reveal"><div class="icon">🚀</div><h3>Entrega continua</h3><p>Metodologías ágiles, comunicación clara y mejoras visibles desde las primeras fases.</p></article>
+      </div>
+    </section>
+
+    <section class="section" id="testimonios">
+      <div class="section-head">
+        <div class="reveal">
+          <span class="eyebrow">Testimonios</span>
+          <h2>Empresas que confían en nosotros</h2>
+        </div>
+        <p class="lead reveal">Ejemplos de testimonios editables para sustituir por casos reales cuando los tengas.</p>
+      </div>
+
+      <div class="testimonials-grid max">
+        <article class="testimonial reveal">
+          <p class="quote">“SBYL Consulting nos ayudó a ordenar nuestros procesos comerciales y automatizar tareas que nos consumían horas cada semana.”</p>
+          <div class="testimonial-meta"><b>Dirección Comercial</b>Empresa B2B</div>
+        </article>
+        <article class="testimonial reveal">
+          <p class="quote">“La integración entre CRM, operaciones y reporting nos dio una visión mucho más clara del negocio.”</p>
+          <div class="testimonial-meta"><b>Operations Manager</b>Servicios profesionales</div>
+        </article>
+        <article class="testimonial reveal">
+          <p class="quote">“Pasamos de gestionar procesos manuales a tener flujos automatizados, trazables y escalables.”</p>
+          <div class="testimonial-meta"><b>CEO</b>Empresa en crecimiento</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="faq">
+      <div class="max" style="text-align:center">
+        <span class="eyebrow" style="justify-content:center">FAQ</span>
+        <h2>Preguntas frecuentes</h2>
+        <p class="lead" style="margin:0 auto">Resolvemos las dudas habituales antes de iniciar un proyecto de automatización, Salesforce, IA o desarrollo a medida.</p>
+      </div>
+
+      <div class="faq">
+        <details class="reveal">
+          <summary>¿En cuánto tiempo puede implementarse una solución?</summary>
+          <p>Depende del alcance. Un diagnóstico inicial puede realizarse en pocos días y una primera versión funcional puede plantearse por fases para generar valor cuanto antes.</p>
+        </details>
+        <details class="reveal">
+          <summary>¿Trabajáis con empresas de cualquier tamaño?</summary>
+          <p>Sí. Adaptamos la solución al tamaño, madurez tecnológica y objetivos de cada empresa, desde equipos en crecimiento hasta organizaciones con procesos complejos.</p>
+        </details>
+        <details class="reveal">
+          <summary>¿Podéis integraros con nuestros sistemas actuales?</summary>
+          <p>Sí. Conectamos Salesforce, ERP, CRM, eCommerce, herramientas internas, bases de datos y APIs externas para crear un ecosistema integrado.</p>
+        </details>
+        <details class="reveal">
+          <summary>¿Desarrolláis soluciones con Inteligencia Artificial?</summary>
+          <p>Sí. Diseñamos agentes IA, chatbots, automatización documental, clasificación de información, análisis predictivo y asistentes internos.</p>
+        </details>
+        <details class="reveal">
+          <summary>¿Qué tecnologías utilizáis?</summary>
+          <p>Seleccionamos la tecnología según el caso: Salesforce, APIs, herramientas cloud, frameworks web, automatización, IA, bases de datos y soluciones BI.</p>
+        </details>
+        <details class="reveal">
+          <summary>¿Ofrecéis soporte después del lanzamiento?</summary>
+          <p>Sí. Acompañamos en formación, adopción, soporte, mantenimiento y evolución continua de la solución.</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="section contact" id="contacto">
+      <div class="contact-grid max">
+        <div class="reveal">
+          <span class="eyebrow">Contacto</span>
+          <h2>Hablemos de tu próximo proyecto</h2>
+          <p class="lead">Descubre cómo la tecnología puede convertirse en una ventaja competitiva para tu empresa. Cuéntanos tu reto y te ayudaremos a aterrizar la mejor solución.</p>
+
+          <div class="contact-cards">
+            <a class="contact-card" href="tel:635158292">
+              <span class="icon" style="margin:0;background:rgba(255,255,255,.1);color:#fff">📞</span>
+              <span><small>Teléfono</small><strong>635 158 292</strong></span>
+            </a>
+            <a class="contact-card" href="mailto:Sbylconsulting@gmail.com">
+              <span class="icon" style="margin:0;background:rgba(255,255,255,.1);color:#fff">✉️</span>
+              <span><small>Email</small><strong>Sbylconsulting@gmail.com</strong></span>
+            </a>
+          </div>
+        </div>
+
+        <div class="form-box reveal">
+          <h3>Solicitar consultoría gratuita</h3>
+          <p>Te responderemos lo antes posible para entender tu necesidad y proponerte próximos pasos.</p>
+
+          <form id="contactForm">
+            <div class="form-grid">
+              <div class="field">
+                <label for="nombre">Nombre completo *</label>
+                <input id="nombre" name="nombre" type="text" placeholder="Tu nombre" required />
+              </div>
+              <div class="field">
+                <label for="empresa">Empresa *</label>
+                <input id="empresa" name="empresa" type="text" placeholder="Nombre de empresa" required />
+              </div>
+              <div class="field">
+                <label for="cargo">Cargo</label>
+                <input id="cargo" name="cargo" type="text" placeholder="CEO, Manager, Responsable..." />
+              </div>
+              <div class="field">
+                <label for="email">Correo corporativo *</label>
+                <input id="email" name="email" type="email" placeholder="tu@empresa.com" required />
+              </div>
+              <div class="field">
+                <label for="telefono">Teléfono</label>
+                <input id="telefono" name="telefono" type="tel" placeholder="+34 600 000 000" />
+              </div>
+              <div class="field">
+                <label for="servicio">Área de interés</label>
+                <select id="servicio" name="servicio">
+                  <option value="">Selecciona una opción</option>
+                  <option>Automatización de procesos</option>
+                  <option>Consultoría Salesforce</option>
+                  <option>Inteligencia Artificial</option>
+                  <option>Desarrollo de software</option>
+                  <option>Integraciones CRM / ERP / APIs</option>
+                  <option>Business Intelligence</option>
+                  <option>No lo tengo claro todavía</option>
+                </select>
+              </div>
+              <div class="field full">
+                <label for="mensaje">Descripción del reto o proyecto *</label>
+                <textarea id="mensaje" name="mensaje" placeholder="Cuéntanos qué proceso quieres mejorar, qué herramientas usas o qué objetivo quieres conseguir..." required></textarea>
+              </div>
+            </div>
+
+            <label class="privacy">
+              <input type="checkbox" required />
+              <span>He leído y acepto la Política de Privacidad.</span>
+            </label>
+
+            <button class="btn btn-primary submit" type="submit" id="submitBtn">Solicitar consultoría gratuita →</button>
+            <div class="form-message" id="formMessage"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta">
+      <div class="final-box reveal">
+        <div>
+          <h2>Convierte la tecnología en el motor de crecimiento de tu empresa</h2>
+          <p class="lead">En SBYL Consulting diseñamos, desarrollamos e implementamos soluciones tecnológicas que generan resultados reales y sostenibles.</p>
+        </div>
+        <a class="btn btn-primary" href="#contacto">Agenda una reunión estratégica →</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <a href="#inicio" class="logo" style="color:#fff">
+        <span class="logo-mark" aria-hidden="true">
+          <svg width="30" height="22" viewBox="0 0 42 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M33 24H9C5.7 24 3 21.5 3 18.4C3 15.9 4.7 13.8 7 13.1C7 12.7 7 12.3 7 11.9C7 8.1 10.1 5 14 5C15.6 5 17.1 5.5 18.3 6.5C19.6 4.4 21.9 3 24.5 3C28.6 3 32 6.3 32 10.3C32 10.6 32 10.8 31.9 11.1C34.3 11.8 36 14 36 16.6C36 20.7 34.8 24 33 24Z" stroke="#73A7DC" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="logo-text">
+          <span class="logo-main" style="color:#fff">SBYL</span>
+          <span class="logo-sub">consulting</span>
+        </span>
+      </a>
+
+      <div class="footer-links">
+        <a href="#soluciones">Soluciones</a>
+        <a href="#metodologia">Metodología</a>
+        <a href="#beneficios">Beneficios</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+
+      <small>© 2026 SBYL Consulting · Todos los derechos reservados</small>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById("nav");
+    const menuBtn = document.getElementById("menuBtn");
+    const navLinks = document.getElementById("navLinks");
+
+    window.addEventListener("scroll", () => {
+      nav.classList.toggle("is-scrolled", window.scrollY > 20);
+    }, { passive: true });
+
+    menuBtn.addEventListener("click", () => {
+      navLinks.classList.toggle("open");
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener("click", event => {
+        const target = document.querySelector(link.getAttribute("href"));
+        if (target) {
+          event.preventDefault();
+          navLinks.classList.remove("open");
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      });
+    });
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+
+    document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+
+    const form = document.getElementById("contactForm");
+    const submitBtn = document.getElementById("submitBtn");
+    const formMessage = document.getElementById("formMessage");
+
+    form.addEventListener("submit", async event => {
+      event.preventDefault();
+
+      submitBtn.textContent = "Enviando...";
+      submitBtn.disabled = true;
+      formMessage.style.display = "none";
+
+      try {
+        const response = await fetch("https://formspree.io/f/mykoelbk", {
+          method: "POST",
+          headers: { "Accept": "application/json" },
+          body: new FormData(form)
+        });
+
+        if (response.ok) {
+          formMessage.textContent = "✓ Mensaje enviado correctamente. Te contactaremos lo antes posible.";
+          formMessage.style.color = "#166534";
+          formMessage.style.background = "rgba(34, 197, 94, .12)";
+          formMessage.style.display = "block";
+          form.reset();
+        } else {
+          formMessage.textContent = "✗ No se pudo enviar. Escríbenos directamente a Sbylconsulting@gmail.com";
+          formMessage.style.color = "#991b1b";
+          formMessage.style.background = "rgba(239, 68, 68, .12)";
+          formMessage.style.display = "block";
+        }
+      } catch (error) {
+        formMessage.textContent = "✗ Sin conexión. Escríbenos directamente a Sbylconsulting@gmail.com";
+        formMessage.style.color = "#991b1b";
+        formMessage.style.background = "rgba(239, 68, 68, .12)";
+        formMessage.style.display = "block";
+      }
+
+      submitBtn.textContent = "Solicitar consultoría gratuita →";
+      submitBtn.disabled = false;
+
+      setTimeout(() => {
+        formMessage.style.display = "none";
+      }, 7000);
+    });
+  </script>
+</body>
+</html>
+'''
+path = Path("/mnt/data/sbyl_consulting_web_premium.html")
+path.write_text(html, encoding="utf-8")
+print(f"Archivo creado: {path}")
+print(f"Tamaño: {path.stat().st_size:,} bytes")

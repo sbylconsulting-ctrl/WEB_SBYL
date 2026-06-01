@@ -1,5 +1,4 @@
-from pathlib import Path
-html = r'''<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
@@ -37,7 +36,7 @@ html = r'''<!DOCTYPE html>
       --ease: cubic-bezier(.22, 1, .36, 1);
     }
 
-    html { scroll-behavior: smooth; font-size: 16px; }
+    html { scroll-behavior: smooth; font-size: 16px; scroll-padding-top: 100px; }
     body {
       font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: var(--white);
@@ -45,6 +44,8 @@ html = r'''<!DOCTYPE html>
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
       line-height: 1.5;
+      width: 100%;
+      max-width: 100vw;
     }
 
     ::selection { background: var(--blue); color: #fff; }
@@ -75,10 +76,12 @@ html = r'''<!DOCTYPE html>
 
     h1, h2, h3 { color: var(--navy); letter-spacing: -.035em; }
     h1 {
-      font-size: clamp(3rem, 7vw, 6.3rem);
+      font-size: clamp(2rem, 5vw, 4.5rem);
       line-height: .93;
       font-weight: 900;
       margin-bottom: 28px;
+      word-break: break-word;
+      overflow-wrap: break-word;
     }
     h2 {
       font-size: clamp(2.15rem, 4vw, 4rem);
@@ -201,7 +204,8 @@ html = r'''<!DOCTYPE html>
     /* HERO */
     .hero {
       min-height: 100vh;
-      padding: 128px 28px 70px;
+      padding: 100px 28px 70px;
+      margin-top: 76px;
       position: relative;
       overflow: hidden;
       background:
@@ -227,11 +231,11 @@ html = r'''<!DOCTYPE html>
       max-width: 1200px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: 1.05fr .95fr;
-      align-items: center;
-      gap: 56px;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
     }
-    .hero-badge {
+
       display: inline-flex;
       align-items: center;
       gap: 10px;
@@ -325,12 +329,18 @@ html = r'''<!DOCTYPE html>
     }
     .hero-visual {
       position: relative;
-      min-height: 590px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 24px;
+      min-height: auto;
+      overflow: visible;
     }
     .dashboard {
-      position: absolute;
-      inset: 24px 0 auto auto;
-      width: min(540px, 100%);
+      position: relative;
+      width: 100%;
+      max-width: 540px;
       border-radius: 30px;
       background: linear-gradient(145deg, rgba(8,20,47,.96), rgba(12,31,70,.96));
       color: #fff;
@@ -338,6 +348,7 @@ html = r'''<!DOCTYPE html>
       box-shadow: 0 34px 110px rgba(8,20,47,.32);
       overflow: hidden;
       border: 1px solid rgba(255,255,255,.12);
+      margin-top: 24px;
     }
     .dashboard::before {
       content: "";
@@ -428,9 +439,7 @@ html = r'''<!DOCTYPE html>
     }
     .flow-arrow { color: var(--blue-2); text-align: center; font-weight: 900; }
     .floating-card {
-      position: absolute;
-      left: 0;
-      bottom: 42px;
+      position: relative;
       width: 250px;
       padding: 18px;
       background: rgba(255,255,255,.9);
@@ -439,6 +448,7 @@ html = r'''<!DOCTYPE html>
       box-shadow: var(--shadow);
       backdrop-filter: blur(16px);
       animation: float 5s ease-in-out infinite;
+      margin-top: 24px;
     }
     @keyframes float {
       0%, 100% { transform: translateY(0); }
@@ -981,8 +991,6 @@ html = r'''<!DOCTYPE html>
       .hero-inner, .about-grid, .benefits-grid, .contact-grid, .section-head {
         grid-template-columns: 1fr;
       }
-      .hero-visual { min-height: 520px; }
-      .dashboard { left: 0; right: auto; }
       .services-grid, .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
       .cases-grid, .steps { grid-template-columns: repeat(2, 1fr); }
       .final-box { grid-template-columns: 1fr; }
@@ -990,24 +998,28 @@ html = r'''<!DOCTYPE html>
 
     @media (max-width: 800px) {
       .section { padding: 78px 22px; }
-      .hero { padding: 112px 22px 60px; }
+      .hero { padding: 90px 22px 60px; margin-top: 70px; }
       .nav { height: 70px; }
       .nav-links {
         position: fixed;
         left: 18px;
         right: 18px;
-        top: 82px;
+        top: 72px;
         padding: 18px;
         display: none;
         flex-direction: column;
         align-items: stretch;
+        gap: 8px;
         background: #fff;
         border: 1px solid var(--border);
         border-radius: 20px;
         box-shadow: var(--shadow-soft);
+        z-index: 999;
+        max-height: calc(100vh - 100px);
+        overflow-y: auto;
       }
       .nav-links.open { display: flex; }
-      .nav-links a { padding: 10px 4px; }
+      .nav-links a { padding: 12px 8px; }
       .menu-btn { display: inline-flex; }
       .hero-inner { gap: 32px; }
       .hero-visual { min-height: auto; }
@@ -1016,6 +1028,7 @@ html = r'''<!DOCTYPE html>
         inset: auto;
         width: 100%;
         border-radius: 24px;
+        margin-top: 24px;
       }
       .floating-card { display: none; }
       .services-grid, .cases-grid, .steps, .benefit-list, .testimonials-grid {
@@ -1029,12 +1042,180 @@ html = r'''<!DOCTYPE html>
     }
 
     @media (max-width: 520px) {
-      h1 { font-size: clamp(2.55rem, 15vw, 4rem); }
+      h1 { font-size: clamp(2rem, 12vw, 3.2rem); line-height: 1.1; }
       .hero-actions .btn { width: 100%; }
       .logo-sub { display: none; }
       .form-box { padding: 24px; border-radius: 22px; }
       .footer-inner { align-items: flex-start; flex-direction: column; }
+      .section { padding: 60px 16px; }
+      .nav { padding: 0 16px; }
+      .eye-brow { font-size: 0.7rem; }
     }
+
+    /* === MEJORADO: Responsive fixes y evita solapes === */
+    main {
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-copy,
+    .hero-visual,
+    .dashboard,
+    .dash-grid,
+    .flow-panel,
+    .flow-node {
+      min-width: 0;
+    }
+
+    .flow-node,
+    .metric,
+    .flow-panel {
+      overflow-wrap: break-word;
+      word-break: break-word;
+    }
+
+    /* Evitar solapamiento con nav en todas las secciones */
+    section {
+      position: relative;
+      z-index: auto;
+    }
+
+    section.section:first-of-type {
+      margin-top: 0;
+    }
+
+    @media (max-width: 1150px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 44px;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .hero-copy {
+        max-width: 820px;
+      }
+
+      .hero-visual {
+        min-height: auto;
+      }
+
+      .dashboard {
+        margin: 0 auto;
+      }
+
+      .floating-card {
+        display: none;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .dashboard {
+        padding: 18px;
+        border-radius: 24px;
+      }
+
+      .dash-top {
+        align-items: flex-start;
+        gap: 14px;
+        flex-direction: column;
+      }
+
+      .dash-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .flow-panel {
+        grid-column: auto;
+      }
+
+      .metric {
+        padding: 16px;
+      }
+
+      .metric b {
+        font-size: clamp(1.9rem, 10vw, 2.2rem);
+      }
+
+      .flow-header {
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .flow {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .flow-arrow {
+        transform: rotate(90deg);
+        line-height: 1;
+        padding: 2px 0;
+      }
+
+      .flow-node {
+        min-height: 58px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .hero {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .section {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .dashboard {
+        padding: 16px;
+        border-radius: 20px;
+      }
+
+      .dash-title strong {
+        font-size: 1rem;
+      }
+
+      .dash-status {
+        font-size: .72rem;
+      }
+    }
+
+
+
+    @media (max-width: 700px) {
+      .hero {
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+      }
+      .dashboard,
+      .floating-card {
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+      .dash-grid {
+        grid-template-columns: 1fr !important;
+      }
+      .flow-panel {
+        grid-column: auto !important;
+      }
+      .flow-header {
+        flex-direction: column !important;
+        gap: 6px !important;
+      }
+      .flow {
+        grid-template-columns: 1fr !important;
+      }
+      .flow-arrow {
+        transform: rotate(90deg) !important;
+      }
+    }
+
   </style>
 </head>
 
@@ -1556,7 +1737,9 @@ html = r'''<!DOCTYPE html>
         if (target) {
           event.preventDefault();
           navLinks.classList.remove("open");
-          target.scrollIntoView({ behavior: "smooth", block: "start" });
+          setTimeout(() => {
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+          }, 100);
         }
       });
     });
@@ -1619,8 +1802,3 @@ html = r'''<!DOCTYPE html>
   </script>
 </body>
 </html>
-'''
-path = Path("/mnt/data/sbyl_consulting_web_premium.html")
-path.write_text(html, encoding="utf-8")
-print(f"Archivo creado: {path}")
-print(f"Tamaño: {path.stat().st_size:,} bytes")

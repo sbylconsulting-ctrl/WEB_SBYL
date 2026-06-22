@@ -74,7 +74,7 @@ button{font-family:var(--font-sans)}
 .nav-logo{display:inline-flex;align-items:center;text-decoration:none}
 .nav-logo img{height:112px;width:auto;display:block}
 .nav-logo b{color:var(--blue)}
-.nav-links{display:flex;align-items:center;gap:28px;list-style:none;margin-left:8px}
+.nav-links{display:flex;align-items:center;gap:28px;list-style:none;margin-left:-16px}
 .nav-links a{font-size:.875rem;color:var(--muted);transition:color .2s;font-weight:400}
 .nav-links a:hover{color:var(--ink)}
 .nav-btn{
@@ -101,20 +101,53 @@ button{font-family:var(--font-sans)}
 
 /* ── hero ── */
 #inicio{
-  padding:196px 0 100px;
-  position:relative;overflow:hidden;
+  padding:0;
+  position:relative;
+  overflow:hidden;
+  min-height:100vh;
+  display:flex;
+  align-items:stretch;
+  background:#F0F2F5;
+  clip-path:inset(0);
+}
+.hero-bg-image{
+  position:absolute;
+  top:80px;
+  right:32px;
+  bottom:80px;
+  width:42%;
+  background-image:url('https://image.comunicacion.sumauto.com/lib/fe2d117175640478731d78/m/1/8544c9a4-cf06-4619-8412-3308bb223b69.png');
+  background-size:cover;
+  background-position:center center;
+  pointer-events:none;
+  z-index:0;
+  border-radius:20px;
+  overflow:hidden;
+  max-width:calc(100% - 64px);
+}
+.hero-bg-image::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to right, rgba(240,242,245,0.4) 0%, transparent 30%);
+  border-radius:20px;
 }
 .hero-line{
   position:absolute;top:0;left:0;right:0;bottom:0;
   background-image:
-    linear-gradient(var(--rule) 1px,transparent 1px),
-    linear-gradient(90deg,var(--rule) 1px,transparent 1px);
+    linear-gradient(rgba(180,185,200,0.35) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(180,185,200,0.35) 1px,transparent 1px);
   background-size:72px 72px;
-  opacity:.45;
-  mask-image:radial-gradient(ellipse 70% 60% at 50% 0%,black,transparent);
   pointer-events:none;
+  z-index:1;
+  mask-image:radial-gradient(ellipse 45% 90% at 22% 50%,black 40%,transparent 100%);
 }
-.hero-wrap{position:relative;z-index:1}
+.hero-wrap{
+  position:relative;
+  z-index:2;
+  max-width:600px;
+  padding:220px 0 100px;
+}
 .hero-eyebrow{
   display:inline-flex;align-items:center;gap:8px;
   font-size:.75rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;
@@ -247,36 +280,6 @@ section{position:relative}
 
 /* ── about / sergio ── */
 #equipo{background:var(--surface)}
-.about-grid{display:grid;grid-template-columns:auto 1fr;gap:72px;align-items:center}
-.about-card{
-  width:300px;
-  background:var(--white);
-  border:1px solid var(--rule);
-  border-radius:16px;
-  overflow:hidden;
-  flex-shrink:0;
-}
-.about-card-top{
-  height:220px;background:var(--blue-light);
-  display:flex;align-items:center;justify-content:center;
-  position:relative;
-}
-.about-initials{
-  font-family:var(--font-serif);
-  font-size:5rem;font-weight:400;font-style:italic;
-  color:var(--blue);opacity:.35;
-  user-select:none;letter-spacing:-.02em;
-}
-.about-badge{
-  position:absolute;top:16px;right:16px;
-  background:var(--white);border:1px solid var(--rule);
-  border-radius:40px;padding:4px 12px;
-  font-size:.6875rem;font-weight:600;
-  letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);
-}
-.about-card-body{padding:24px}
-.about-card-body h3{font-size:1.0625rem;font-weight:600;color:var(--ink);margin-bottom:4px}
-.about-card-body p{font-size:.8125rem;color:var(--muted)}
 .about-text .s-sub{max-width:100%;margin-bottom:28px}
 .about-vals{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:28px 0}
 .aval{
@@ -474,6 +477,7 @@ footer{background:var(--surface);border-top:1px solid var(--rule);padding:48px 0
   .foot-inner{flex-direction:column;gap:32px}
   .foot-bottom{flex-direction:column;align-items:flex-start}
   section.pad{padding:72px 0}
+  .hero-bg-image{display:none}
 }
 @media(max-width:480px){
   h1.hero-h1{font-size:2.5rem}
@@ -518,8 +522,10 @@ footer{background:var(--surface);border-top:1px solid var(--rule);padding:48px 0
 
 <!-- HERO -->
 <section id="inicio" aria-labelledby="hero-h1">
+  <div class="hero-bg-image" aria-hidden="true"></div>
   <div class="hero-line" aria-hidden="true"></div>
-  <div class="wrap hero-wrap">
+  <div class="wrap" style="width:100%;max-width:var(--max);margin:0 auto;padding:0 32px;z-index:2;position:relative">
+  <div class="hero-wrap">
     <div class="hero-eyebrow" aria-hidden="true">
       <span class="hero-eyebrow-dot"></span>
       Consultoría tecnológica B2B · España
@@ -549,10 +555,9 @@ footer{background:var(--surface);border-top:1px solid var(--rule);padding:48px 0
         <div class="h-stat-l">Soluciones a medida</div>
       </div>
     </div>
-  </div>
+  </div><!-- /hero-wrap -->
+  </div><!-- /wrap -->
 </section>
-
-<!-- STRIP -->
 <div class="strip" aria-hidden="true">
   <div class="strip-track">
     <span class="strip-item"><span class="strip-sep"></span>Salesforce</span>
@@ -701,58 +706,46 @@ footer{background:var(--surface);border-top:1px solid var(--rule);padding:48px 0
 <!-- SERGIO -->
 <section id="equipo" class="pad">
   <div class="wrap">
-    <div class="about-grid">
-      <div class="about-card reveal" role="img" aria-label="Sergio Barrena, Fundador de SBYL Consulting">
-        <div class="about-card-top">
-          <span class="about-initials" aria-hidden="true">SB</span>
-          <span class="about-badge">Fundador</span>
+    <div class="about-text reveal" style="max-width:720px;margin:0 auto;text-align:center">
+      <span class="eyebrow">Quién hay detrás</span>
+      <h2 class="s-title">No trato con cuentas.<br><em>Trato con personas.</em></h2>
+      <p class="s-sub" style="max-width:100%;margin:0 auto 14px">Soy Sergio Barrena, fundador de SBYL Consulting. Trabajo directamente con cada cliente para entender su negocio antes de proponer cualquier solución tecnológica.</p>
+      <p class="s-sub" style="max-width:100%;margin:0 auto 32px">No subcontrato el diagnóstico ni el diseño. El primer día que hablamos soy yo, y durante todo el proyecto también.</p>
+      <div class="about-vals" role="list" style="text-align:left;max-width:640px;margin:0 auto 32px">
+        <div class="aval" role="listitem">
+          <div class="aval-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <h4>Sin intermediarios</h4>
+          <p>Hablas con quien diseña e implementa la solución.</p>
         </div>
-        <div class="about-card-body">
-          <h3>Sergio Barrena</h3>
-          <p>Fundador &amp; Consultor Principal</p>
+        <div class="aval" role="listitem">
+          <div class="aval-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9z"/></svg>
+          </div>
+          <h4>Agilidad real</h4>
+          <p>Menos burocracia, más velocidad. Sin comités internos.</p>
+        </div>
+        <div class="aval" role="listitem">
+          <div class="aval-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <h4>Orientado a resultados</h4>
+          <p>Me mido por el impacto que genera la solución.</p>
+        </div>
+        <div class="aval" role="listitem">
+          <div class="aval-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h4>Compromiso real</h4>
+          <p>Acompaño tras el lanzamiento. No desaparezco.</p>
         </div>
       </div>
-      <div class="about-text reveal">
-        <span class="eyebrow">Quién hay detrás</span>
-        <h2 class="s-title">No trato con cuentas.<br><em>Trato con personas.</em></h2>
-        <p class="s-sub">Soy Sergio Barrena, fundador de SBYL Consulting. Trabajo directamente con cada cliente para entender su negocio antes de proponer cualquier solución tecnológica.</p>
-        <p class="s-sub" style="margin-top:14px">No subcontrato el diagnóstico ni el diseño. El primer día que hablamos soy yo, y durante todo el proyecto también.</p>
-        <div class="about-vals" role="list">
-          <div class="aval" role="listitem">
-            <div class="aval-ico" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-            </div>
-            <h4>Sin intermediarios</h4>
-            <p>Hablas con quien diseña e implementa la solución.</p>
-          </div>
-          <div class="aval" role="listitem">
-            <div class="aval-ico" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9z"/></svg>
-            </div>
-            <h4>Agilidad real</h4>
-            <p>Menos burocracia, más velocidad. Sin comités internos.</p>
-          </div>
-          <div class="aval" role="listitem">
-            <div class="aval-ico" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-            </div>
-            <h4>Orientado a resultados</h4>
-            <p>Me mido por el impacto que genera la solución.</p>
-          </div>
-          <div class="aval" role="listitem">
-            <div class="aval-ico" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            </div>
-            <h4>Compromiso real</h4>
-            <p>Acompaño tras el lanzamiento. No desaparezco.</p>
-          </div>
-        </div>
-        <a href="https://www.linkedin.com/in/salesforce-consultant-sergio-barrena/" class="li-link" target="_blank" rel="noopener noreferrer" aria-label="Ver perfil de Sergio Barrena en LinkedIn (abre en nueva pestaña)">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          Ver perfil en LinkedIn
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:13px;height:13px;fill:none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-      </div>
+      <a href="https://www.linkedin.com/in/salesforce-consultant-sergio-barrena/" class="li-link" target="_blank" rel="noopener noreferrer" aria-label="Ver perfil de Sergio Barrena en LinkedIn" style="justify-content:center">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        Ver perfil de Sergio en LinkedIn
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:13px;height:13px;fill:none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
     </div>
   </div>
 </section>
